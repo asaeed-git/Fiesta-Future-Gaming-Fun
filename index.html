@@ -43,23 +43,15 @@ document.getElementById("form").addEventListener("submit", e => {
 
   fetch(scriptURL, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
+    mode: "no-cors",
     body: JSON.stringify(data)
   })
-  .then(res => res.json())
-  .then(response => {
-    if (response.success) {
-      document.getElementById("msg").classList.remove("hidden");
-      e.target.reset();
-    } else {
-      alert("Script error: " + response.error);
-    }
+  .then(() => {
+    document.getElementById("msg").classList.remove("hidden");
+    e.target.reset();
   })
-  .catch(err => {
-    console.error(err);
-    alert("Network error");
+  .catch(() => {
+    alert("Submission failed. Try again.");
   });
 });
 </script>

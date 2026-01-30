@@ -1,45 +1,102 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Event Participant Registration</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center p-4">  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-8">
-    <h1 class="text-3xl font-bold text-center text-gray-800">Participant Registration</h1>
-    <p class="text-center text-gray-500 mt-2">Register to secure your spot</p><form class="mt-6 space-y-4" onsubmit="handleSubmit(event)">
-  <div>
-    <label class="block text-sm font-medium text-gray-700">Full Name</label>
-    <input required type="text" class="mt-1 w-full rounded-lg border-gray-300 focus:ring-2 focus:ring-indigo-500 p-2" />
+
+<body class="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center p-4">
+
+  <!-- Exit Intent Modal -->
+  <div id="exitModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-8 relative animate-scaleIn">
+      <button onclick="closeModal()" class="absolute top-3 right-4 text-gray-500 text-2xl">&times;</button>
+
+      <h1 class="text-3xl font-bold text-center text-gray-800">Participant Registration</h1>
+      <p class="text-center text-gray-500 mt-2">Register to secure your spot</p>
+
+      <form class="mt-6 space-y-4" onsubmit="handleSubmit(event)">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Full Name</label>
+          <input required type="text" class="mt-1 w-full rounded-lg border-gray-300 focus:ring-2 focus:ring-indigo-500 p-2">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Email Address</label>
+          <input required type="email" class="mt-1 w-full rounded-lg border-gray-300 focus:ring-2 focus:ring-indigo-500 p-2">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Phone Number</label>
+          <input required type="tel" class="mt-1 w-full rounded-lg border-gray-300 focus:ring-2 focus:ring-indigo-500 p-2">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Institution / Organization</label>
+          <input type="text" class="mt-1 w-full rounded-lg border-gray-300 focus:ring-2 focus:ring-indigo-500 p-2">
+        </div>
+
+        <button type="submit" class="w-full bg-indigo-600 text-white rounded-lg py-2 text-lg font-semibold hover:bg-indigo-700 transition">
+          Register Now
+        </button>
+      </form>
+
+      <p id="success" class="hidden text-green-600 text-center mt-4 font-medium">
+        Registration submitted successfully!
+      </p>
+    </div>
   </div>
 
-  <div>
-    <label class="block text-sm font-medium text-gray-700">Email Address</label>
-    <input required type="email" class="mt-1 w-full rounded-lg border-gray-300 focus:ring-2 focus:ring-indigo-500 p-2" />
+  <!-- Main Page Content -->
+  <div class="text-white text-center max-w-xl">
+    <h1 class="text-4xl font-bold">Welcome to Our Event</h1>
+    <p class="mt-4 text-lg opacity-90">
+      Press back to exit and see the registration popup.
+    </p>
   </div>
 
-  <div>
-    <label class="block text-sm font-medium text-gray-700">Phone Number</label>
-    <input required type="tel" class="mt-1 w-full rounded-lg border-gray-300 focus:ring-2 focus:ring-indigo-500 p-2" />
-  </div>
+  <script>
+    let modalShown = false;
 
-  <div>
-    <label class="block text-sm font-medium text-gray-700">Institution / Organization</label>
-    <input type="text" class="mt-1 w-full rounded-lg border-gray-300 focus:ring-2 focus:ring-indigo-500 p-2" />
-  </div>
+    // Push fake history state
+    history.pushState({ page: "stay" }, "", "");
 
-  <button type="submit" class="w-full bg-indigo-600 text-white rounded-lg py-2 text-lg font-semibold hover:bg-indigo-700 transition">
-    Register Now
-  </button>
-</form>
+    window.addEventListener("popstate", function () {
+      if (!modalShown) {
+        showModal();
+        modalShown = true;
+        history.pushState({ page: "stay" }, "", "");
+      }
+    });
 
-<p id="success" class="hidden text-green-600 text-center mt-4 font-medium">Registration submitted successfully!</p>
+    function showModal() {
+      const modal = document.getElementById("exitModal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    }
 
-  </div>  <script>
+    function closeModal() {
+      document.getElementById("exitModal").classList.add("hidden");
+    }
+
     function handleSubmit(e) {
       e.preventDefault();
-      document.getElementById('success').classList.remove('hidden');
+      document.getElementById("success").classList.remove("hidden");
       e.target.reset();
     }
-  </script></body>
-  </html>
+  </script>
+
+  <style>
+    @keyframes scaleIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .animate-scaleIn {
+      animation: scaleIn 0.25s ease-out;
+    }
+  </style>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Event Participant Registration</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center p-4">  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-8">
+    <h1 class="text-3xl font-bold text-center text-gray-800">Participant Registration</h1>
+    <p class="text-center text-gray-500 mt-2">Register to secure your spot</p><form class="mt-6 space-y-4" onsubmit="handleSubmit(event)">
+  <div>
+    <label class="block text-sm font-medium text-gray-700">Full Name</label>
+    <input required type="text" class="mt-1 w-full rounded-lg border-gray-300 focus:ring-2 focus:ring-indigo-500 p-2" />
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium text-gray-700">Email Address</label>
+    <input required type="email" class="mt-1 w-full rounded-lg border-gray-300 focus:ring-2 focus:ring-indigo-500 p-2" />
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium text-gray-700">Phone Number</label>
+    <input required type="tel" class="mt-1 w-full rounded-lg border-gray-300 focus:ring-2 focus:ring-indigo-500 p-2" />
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium text-gray-700">Institution / Organization</label>
+    <input type="text" class="mt-1 w-full rounded-lg border-gray-300 focus:ring-2 focus:ring-indigo-500 p-2" />
+  </div>
+
+  <button type="submit" class="w-full bg-indigo-600 text-white rounded-lg py-2 text-lg font-semibold hover:bg-indigo-700 transition">
+    Register Now
+  </button>
+</form>
+
+<p id="success" class="hidden text-green-600 text-center mt-4 font-medium">Registration submitted successfully!</p>
+
+  </div>  <script>
+    function handleSubmit(e) {
+      e.preventDefault();
+      document.getElementById('success').classList.remove('hidden');
+      e.target.reset();
+    }
+  </script></body>
+  </html>
